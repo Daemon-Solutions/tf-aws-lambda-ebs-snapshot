@@ -64,7 +64,7 @@ def lambda_handler(event, context):
         snapshots_to_delete = snapshots[snapshots_to_keep:]
         for snapshot in snapshots_to_delete:
             snapshot_id = snapshot['SnapshotId']
-            client.delete_snapshot(snapshot_id)
+            client.delete_snapshot(SnapshotId=snapshot_id)
             print 'Removed old snapshot: {}'.format(snapshot_id)
         
 
