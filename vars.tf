@@ -25,3 +25,7 @@ variable "tag_name" {
 variable "tag_value" {
   default = "weekly"
 }
+
+variable "aws_region" {
+  default = "eu-west-1"
+}
