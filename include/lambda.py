@@ -54,6 +54,7 @@ def lambda_handler(event, context):
             }
         ]
     )
+    print 'Created snapshot: {}'.format(new_snapshot['SnapshotId'])
     
     # discover snapshots
     snapshots = get_snapshots(volume_id, tag_name, tag_value)
@@ -64,6 +65,7 @@ def lambda_handler(event, context):
         for snapshot in snapshots_to_delete:
             snapshot_id = snapshot['SnapshotId']
             client.delete_snapshot(snapshot_id)
+            print 'Removed old snapshot: {}'.format(snapshot_id)
         
 
             
