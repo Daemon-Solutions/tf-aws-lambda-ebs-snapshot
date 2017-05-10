@@ -1,3 +1,13 @@
+resource "aws_cloudwatch_log_group" "lambda_log_group" {
+  name              = "${var.lambda_function_name}"
+  retention_in_days = "${lambda_logs_retention_in_days}"
+
+  tags {
+    environment = "${var.envname}"
+    service     = "${var.service}"
+  }
+}
+
 ## create lambda package
 data "archive_file" "create_lambda_package" {
   type        = "zip"
@@ -15,7 +25,7 @@ resource "aws_s3_bucket_object" "upload_lambda_package" {
 
 ## create lambda function
 resource "aws_lambda_function" "volume_backup" {
-  depends_on        = ["aws_s3_bucket_object.upload_lambda_package"]
+  depends_on        = ["aws_s3_bucket_object.upload_lambda_package", "aws_cloudwatch_log_group.lambda_log_group"]
   s3_bucket         = "${aws_s3_bucket.bucket_for_lambda_package.id}"
   s3_key            = "lambda-snapshot-${var.lambda_version}.zip"
   s3_object_version = "null"

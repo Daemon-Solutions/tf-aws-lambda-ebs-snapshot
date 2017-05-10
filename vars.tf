@@ -31,3 +31,7 @@ variable "tag_value" {
 variable "aws_region" {
   default = "eu-west-1"
 }
+
+variable "lambda_logs_retention_in_days" {
+  default = "30"
+}
