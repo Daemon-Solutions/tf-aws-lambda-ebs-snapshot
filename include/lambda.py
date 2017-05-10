@@ -43,7 +43,7 @@ def lambda_handler(event, context):
     new_snapshot = client.create_snapshot(VolumeId=volume_id)
     
     # tag snapshot
-    client.create_tag(
+    client.create_tags(
         Resources=[
             new_snapshot['SnapshotId']
         ],
