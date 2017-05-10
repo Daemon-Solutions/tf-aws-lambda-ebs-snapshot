@@ -20,7 +20,7 @@ resource "aws_lambda_function" "volume_backup" {
   s3_key            = "lambda-snapshot-${var.lambda_version}.zip"
   s3_object_version = "null"
   function_name     = "${var.lambda_function_name}"
-  role              = "${aws_iam_role.lambda_manage_dns_role.arn}"
+  role              = "${aws_iam_role.lambda_role.arn}"
   handler           = "lambda.lambda_handler"
   runtime           = "python2.7"
   timeout           = "60"
