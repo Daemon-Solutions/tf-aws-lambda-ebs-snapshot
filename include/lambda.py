@@ -60,7 +60,7 @@ def lambda_handler(event, context):
     snapshots = get_snapshots(volume_id, tag_name, tag_value)
 
     # delete old snapshots
-    if len(snapshots) > snapshots_to_keep:
+    if len(snapshots) > int(snapshots_to_keep):
         snapshots_to_delete = snapshots[snapshots_to_keep:]
         for snapshot in snapshots_to_delete:
             snapshot_id = snapshot['SnapshotId']
