@@ -1,7 +1,7 @@
 ## create lambda package
 data "archive_file" "create_lambda_package" {
   type        = "zip"
-  source_dir  = "${path.module}/lambda.py"
+  source_dir  = "${path.module}/include/"
   output_path = "/tmp/${var.envname}-${var.service}-lambda/lambda-${var.lambda_version}.zip"
 }
 
