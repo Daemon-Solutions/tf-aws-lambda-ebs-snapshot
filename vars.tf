@@ -2,6 +2,8 @@ variable "envname" {}
 
 variable "service" {}
 
+variable "cloudwatch_event_rule_name" {}
+
 variable "lambda_function_name" {}
 
 variable "volume_id" {}

@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_event_rule" "volume_backup" {
-  name                = "volume_backup"
+  name                = "${var.cloudwatch_event_rule_name}"
   description         = "Trigger for lambda volume backup"
   schedule_expression = "${var.cron_schedule}"
 }
