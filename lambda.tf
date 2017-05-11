@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name              = "${var.lambda_function_name}"
-  retention_in_days = "${lambda_logs_retention_in_days}"
+  retention_in_days = "${var.lambda_logs_retention_in_days}"
 
   tags {
     environment = "${var.envname}"
