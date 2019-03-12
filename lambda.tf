@@ -1,3 +1,7 @@
+locals {
+  module_relpath = "${substr(path.module, length(path.cwd) + 1, -1)}"
+}
+
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name              = "${var.lambda_function_name}"
   retention_in_days = "${var.lambda_logs_retention_in_days}"
@@ -11,14 +15,14 @@ resource "aws_cloudwatch_log_group" "lambda_log_group" {
 ## create lambda package
 data "archive_file" "lambda_package" {
   type        = "zip"
-  source_file = "${path.module}/include/lambda.py"
-  output_path = "${path.module}/include/lambda.zip"
+  source_file = "${local.module_relpath}/include/lambda.py"
+  output_path = "${local.module_relpath}/include/lambda.zip"
 }
 
 ## create lambda function
 resource "aws_lambda_function" "volume_backup" {
   depends_on       = ["aws_cloudwatch_log_group.lambda_log_group"]
-  filename         = "${path.module}/include/lambda.zip"
+  filename         = "${data.archive_file.lambda_package.output_path}"
   source_code_hash = "${data.archive_file.lambda_package.output_base64sha256}"
   function_name    = "${var.lambda_function_name}"
   role             = "${aws_iam_role.lambda_role.arn}"
