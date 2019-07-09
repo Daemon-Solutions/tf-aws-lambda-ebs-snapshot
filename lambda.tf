@@ -1,12 +1,14 @@
 locals {
-  module_relpath = "${substr(path.module, length(path.cwd) + 1, -1)}"
+  module_relpath_11 = "${substr(path.module, length(path.cwd) + 1, -1)}"
+  module_relpath_12 = "${path.module}"
+  module_relpath    = "${path.cwd == substr(path.module, 0, length(path.cwd)) ? local.module_relpath_11 : local.module_relpath_12}"
 }
 
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name              = "${var.lambda_function_name}"
   retention_in_days = "${var.lambda_logs_retention_in_days}"
 
-  tags {
+  tags = {
     environment = "${var.envname}"
     service     = "${var.service}"
   }
